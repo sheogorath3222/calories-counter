@@ -14,4 +14,12 @@ export default class Result {
     this.caloriesMaxOutput.textContent = calories.max;
     this.root.classList.remove(`counter__result--hidden`);
   }
+  hide() {
+    this.caloriesNormOutput.textContent = 0;
+    this.caloriesMinOutput.textContent = 0;
+    this.caloriesMaxOutput.textContent = 0;
+
+    this.root.classList.add(`counter__result--hidden`);
+    this.counter.scrollIntoView({block: `start`, behavior: `smooth`});
+  }
 }

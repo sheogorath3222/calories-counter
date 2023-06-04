@@ -40,10 +40,13 @@ export default class Counter {
     this.result = new Result(this.root);
     this._onFormInput = this._onFormInput.bind(this);
     this._onFormSubmit = this._onFormSubmit.bind(this);
+    this.parametersItems = Array.from(this.parameters);
+    this._onFormReset = this._onFormReset.bind(this);
   }
 
   _onFormInput() {
     this.submit.disabled = !this.form.checkValidity();
+    this.reset.disabled = !this.parametersItems.some((el) => el.value);
   }
   _onFormSubmit(evt) {
     evt.preventDefault();
@@ -56,10 +59,16 @@ export default class Counter {
 
     this.result.show(caloriesData);
   }
+  _onFormReset() {
+    this.reset.disabled = true;
+    this.submit.disabled = true;
+    this.result.hide();
+  }
 
   init() {
     this.form.addEventListener(`input`, this._onFormInput, true);
     this.form.addEventListener(`submit`, this._onFormSubmit);
+    this.form.addEventListener(`reset`, this._onFormReset);
   }
 
   getCaloriesNorm() {
